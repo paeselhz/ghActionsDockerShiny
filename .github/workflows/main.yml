@@ -1,0 +1,86 @@
+# Configurando um workflow para trabalhar com o Github Actions
+
+name: ci
+
+# Controles para quando disparar a GH Action
+# Abaixo foram configurados disparos para commits:
+# - na branch master
+# - quando for criado uma tag do projeto
+# - Agendado para rodar as 01:00GMT
+# Tambem pode ser configurado para disparar com pull_requests
+# bem como excluir branches para que nao originem disparos
+on:
+  push:
+    branches: [ master ]
+    tags: [ '*.*.*' ]
+  schedule:
+    - cron: '0 1 * * *'
+
+# Abaixo segue a configuracao do job para fazer a construcao do projeto
+# e o push para um repositorio no dockerHub
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Prepare
+        id: prep
+        run: |
+          DOCKER_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/ghActionsDockerShiny
+          VERSION=noop
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            VERSION=nightly
+          elif [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          elif [[ $GITHUB_REF == refs/heads/* ]]; then
+            VERSION=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
+            if [ "${{ github.event.repository.default_branch }}" = "$VERSION" ]; then
+              VERSION=edge
+            fi
+          fi
+          TAGS="${DOCKER_IMAGE}:${VERSION}"
+          if [[ $VERSION =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+            MINOR=${VERSION%.*}
+            MAJOR=${MINOR%.*}
+            TAGS="$TAGS,${DOCKER_IMAGE}:${MINOR},${DOCKER_IMAGE}:${MAJOR},${DOCKER_IMAGE}:latest"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            TAGS="$TAGS,${DOCKER_IMAGE}:sha-${GITHUB_SHA::8}"
+          fi
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=tags::${TAGS}
+          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.prep.outputs.tags }}
+          labels: |
+            org.opencontainers.image.title=${{ github.event.repository.name }}
+            org.opencontainers.image.description=${{ github.event.repository.description }}
+            org.opencontainers.image.url=${{ github.event.repository.html_url }}
+            org.opencontainers.image.source=${{ github.event.repository.clone_url }}
+            org.opencontainers.image.version=${{ steps.prep.outputs.version }}
+            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.licenses=${{ github.event.repository.license.spdx_id }}
