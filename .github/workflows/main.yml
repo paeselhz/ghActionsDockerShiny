@@ -1,14 +1,14 @@
-# Configurando um workflow para trabalhar com o Github Actions
+# Setting up a Workflow to work with Github Actions
 
 name: ci
 
-# Controles para quando disparar a GH Action
-# Abaixo foram configurados disparos para commits:
-# - na branch master
-# - quando for criado uma tag do projeto
-# - Agendado para rodar as 01:00GMT
-# Tambem pode ser configurado para disparar com pull_requests
-# bem como excluir branches para que nao originem disparos
+# Controls to when trigger the GH Action
+# Below are configurations to the following triggers:
+# - commits at master branch
+# - tag commits at the project
+# - scheduled to run at 01:00GMT
+# The user can also configure triggers at pull requests
+# as well as remove branches from triggering GH Actions:
 on:
   push:
     branches: [ master ]
@@ -16,17 +16,21 @@ on:
   schedule:
     - cron: '0 1 * * *'
 
-# Abaixo segue a configuracao do job para fazer a construcao do projeto
-# e o push para um repositorio no dockerHub
+# Below there is the job configuration to build the image
+# and push it to a DockerHub repository
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
+        # This action os responsible for project checkout
         uses: actions/checkout@v2
       -
         name: Prepare
+        # In this preparation step, a few configurations are made
+        # according to tags that will be used to export the image
+        # for Docker Hub, as well as the name of the image itself
         id: prep
         run: |
           DOCKER_IMAGE=lhzpaese/ghactions_docker_shiny
@@ -54,12 +58,17 @@ jobs:
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       -
         name: Set up QEMU
+        # This step sets up and install the QEMU action
+        # that allow multi-platform builds
         uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
+        # In this step is installed the Docker BuildX action
+        # that will be used to build the image
         uses: docker/setup-buildx-action@v1
       -
         name: Login to DockerHub
+        # This step logs in at Docker Hub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
@@ -67,6 +76,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
+        # This step is responsible for building the image using the ./Dockerfile
+        # that is stored at the root of the project, also it is possible to define
+        # the Docker Build context as well as the tags that will be exported to DockerHub
+        # and labels associated with the image
         id: docker_build
         uses: docker/build-push-action@v2
         with:
