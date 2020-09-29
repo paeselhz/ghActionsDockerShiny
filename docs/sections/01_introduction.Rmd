@@ -15,7 +15,11 @@ class: middle center bg-main1 hide-slide-number
 
 --
 
-  ## GitHub Actions é uma ferramenta desenvolvida pelo GitHub para prover uma infraestrutura de automação de workflow para testes, validações e deploys. Ela visa fornecer um ambiente de fácil colaboração para que projetos open-source possam se valer de ferramentas de CI/CD
+  ## GitHub Actions é uma ferramenta desenvolvida pelo GitHub para prover uma infraestrutura de automação de workflow para testes, validações e deploys. 
+  
+--
+
+  ## Ela visa fornecer um ambiente de fácil colaboração para que projetos open-source possam se valer de ferramentas de CI/CD
   
 ---
 

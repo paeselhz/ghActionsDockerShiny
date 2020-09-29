@@ -55,7 +55,11 @@ class: middle center bg-main1 hide-slide-number
 
 --
 
-  ## GitHub Actions é uma ferramenta desenvolvida pelo GitHub para prover uma infraestrutura de automação de workflow para testes, validações e deploys. Ela visa fornecer um ambiente de fácil colaboração para que projetos open-source possam se valer de ferramentas de CI/CD
+  ## GitHub Actions é uma ferramenta desenvolvida pelo GitHub para prover uma infraestrutura de automação de workflow para testes, validações e deploys. 
+  
+--
+
+  ## Ela visa fornecer um ambiente de fácil colaboração para que projetos open-source possam se valer de ferramentas de CI/CD
   
 ---
 
@@ -161,7 +165,23 @@ class: middle center bg-main1 hide-slide-number
 # Jenkins
 
 --
-  ## Jenkins é uma ferramenta completamente open-source que permite a configuração de um servidor responsável pelos processos de CI/CD, facilmente configurado; existem distribuições já containerizadas da aplicação que exitam a necessidade de configurar o Jenkins, rodando ele como um Docker container. A desvantagem dele, frente ao GitHub Actions é a necessidade de arcar com os custos de sustentação dessa infraestrutura, algo que é abstraído pelo GitHub Actions para projetos open-source.
+  ## Jenkins é uma ferramenta completamente open-source que permite a configuração de um servidor responsável pelos processos de CI/CD, facilmente configurado. 
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Jenkins
+
+  ## Existem distribuições já containerizadas da aplicação que exitam a necessidade de configurar o Jenkins, rodando ele como um Docker container. 
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Jenkins
+
+  ## A desvantagem dele, frente ao GitHub Actions é a necessidade de arcar com os custos de sustentação dessa infraestrutura, algo que é abstraído pelo GitHub Actions para projetos open-source.
 
 ---
 
@@ -214,7 +234,11 @@ class: middle center bg-main1 hide-slide-number
 
 --
 
-  ## Para orquestrar um workflow para ser executado pelo GitHub Actions, é preciso adicionar um arquivo na pasta `.github/workflows/`. Nesse diretório podem ser adicionados mais de um workflow, para diferentes tipos de execução, o GitHub consegue organizar isso de forma coesa. Entretanto, a sugestão do GitHub é que o principal arquivo seja o `main.yml`.
+  ## Para orquestrar um workflow para ser executado pelo GitHub Actions, é preciso adicionar um arquivo na pasta `.github/workflows/`.
+  
+--
+
+  ## Nesse diretório podem ser adicionados mais de um workflow, para diferentes tipos de execução, o GitHub consegue organizar isso de forma coesa. Entretanto, a sugestão do GitHub é que o principal arquivo seja o `main.yml`.
   
   
 ---
@@ -234,7 +258,21 @@ class: middle center bg-main1 hide-slide-number
 # Componentes do Arquivo
 
   ### `Workflows` basicamente são a estrutura procedural da execução, nele são explicitados quais serão os passos a ser tomados, os gatilhos para disparo da execução e a configuração de um ou mais _jobs_.
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Componentes do Arquivo
+  
   ### `Jobs` correspondem a um conjunto de instruções que devem ser executadas, um mesmo workflow pode ter mais de um Job, e um Job pode ter mais de um Step.
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Componentes do Arquivo
+
   ### `Events` são as configurações de disparo para a execução do workflow, seja por commits na branch master, seja por criação de tags no projeto, ou para a validação de Pull requests criados
 
 ---

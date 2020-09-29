@@ -14,7 +14,23 @@ class: middle center bg-main1 hide-slide-number
 # Jenkins
 
 --
-  ## Jenkins é uma ferramenta completamente open-source que permite a configuração de um servidor responsável pelos processos de CI/CD, facilmente configurado; existem distribuições já containerizadas da aplicação que exitam a necessidade de configurar o Jenkins, rodando ele como um Docker container. A desvantagem dele, frente ao GitHub Actions é a necessidade de arcar com os custos de sustentação dessa infraestrutura, algo que é abstraído pelo GitHub Actions para projetos open-source.
+  ## Jenkins é uma ferramenta completamente open-source que permite a configuração de um servidor responsável pelos processos de CI/CD, facilmente configurado. 
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Jenkins
+
+  ## Existem distribuições já containerizadas da aplicação que excluem a necessidade de configurar o Jenkins, rodando ele como um Docker container. 
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Jenkins
+
+  ## A desvantagem dele, frente ao GitHub Actions é a necessidade de arcar com os custos de sustentação dessa infraestrutura, algo que é abstraído pelo GitHub Actions para projetos open-source.
 
 ---
 
