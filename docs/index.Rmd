@@ -29,7 +29,7 @@ class: middle bg-main1 hide-slide-number
 * Introdução
 * Revisitando Docker
 * Ferramentas de CI/CD
-* Arquivo YAML - GitHub Actions
+* GitHub Actions
 * Conclusão
 * Live Demo
 ]
@@ -44,7 +44,7 @@ class: middle bg-main1 hide-slide-number
 ```{r How_To, child='sections/03_ci_cd_tools.Rmd'}
 ```
 
-```{r Examples, child='sections/04_github_actions_yaml.Rmd'}
+```{r Examples, child='sections/04_github_actions.Rmd'}
 ```
 
 ```{r Conclusions, child='sections/05_conclusion.Rmd'}
