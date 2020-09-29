@@ -1,0 +1,45 @@
+class: bg-main1 split-30 hide-slide-number
+
+.column.bg-main3[
+]
+.column.slide-in-right[
+.sliderbox.bg-main2.vmiddle[
+.font3[Conclusão]
+]]
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Utilização do GitHub Actions
+
+--
+  <div class = "bullet2" style="font-size: 1.3em">
+  <ul>
+  <li> O GitHub Actions pode ser utilizado pra acelerar processos de Ciência de Dados, fornecendo uma boa infraestrutura para que projetos open-source sejam testados, validados e distribuídos de forma mais automatizada; </li>
+  <li> Além de não ter custo para projetos de código aberto, existe um limite de uso para repositórios privados; </li>
+  <li> Ele abstrai muitas das dependências de um servidor de CI/CD, e possui integração nativa com o GitHub; </li>
+  <li> Existe a possibilidade de construir um <code class = "remark-inline-code">self-hosted runner</code>, para integrar as GitHub Actions com outras ferramentas de git como GitLab e BitBucket </li>
+  </ul>
+  </div>
+---
+
+class: middle left bg-main1 hide-slide-number
+
+# Referências
+
+## `r icon::fa_angle_double_right()` [Introduction to GitHub Actions](https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/introduction-to-github-actions)
+
+## `r icon::fa_angle_double_right()` [Using GitHub Actions to speed up CI/CD in data science projects](https://towardsdatascience.com/using-github-actions-to-speed-up-ci-cd-in-data-science-projects-77d9b1c88228)
+
+## `r icon::fa_angle_double_right()` [Docker Run! Checking out Docker's v2 GitHub Actions](https://youtu.be/uoLGTAev16g)
+
+---
+
+class: bg-main5 middle center hide-slide-number
+
+## [`r icon::fa_envelope_open()`](mailto:lhzpaese@gmail.com) lhzpaese@gmail.com
+## [`r icon::fa_github()`](https://github.com/paeselhz) https://github.com/paeselhz
+## [`r icon::fa_linkedin()`](https://www.linkedin.com/in/lhzpaese/) https://www.linkedin.com/in/lhzpaese/
+
+---
