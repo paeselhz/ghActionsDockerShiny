@@ -1,0 +1,38 @@
+class: bg-main1 split-30 hide-slide-number
+
+.column.bg-main3[
+]
+.column.slide-in-right[
+.sliderbox.bg-main2.vmiddle[
+.font3[Ferramentas de CI/CD]
+]]
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Jenkins
+
+--
+  ## Jenkins é uma ferramenta completamente open-source que permite a configuração de um servidor responsável pelos processos de CI/CD, facilmente configurado; existem distribuições já containerizadas da aplicação que exitam a necessidade de configurar o Jenkins, rodando ele como um Docker container. A desvantagem dele, frente ao GitHub Actions é a necessidade de arcar com os custos de sustentação dessa infraestrutura, algo que é abstraído pelo GitHub Actions para projetos open-source.
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# CircleCI
+
+--
+  ## Diferente do Jenkins, o CircleCI possui duas formas de ser utilizado, uma `self-hosted`, onde o usuário adquire uma licença e faz o deploy em sua infraestrutura, e uma versão `cloud` que é gerenciada pela CircleCI, porém possui limitações de número de minutos em builds, e um número limitado de jobs simultâneos.
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Travis-CI
+
+--
+
+  ## Assim como o CircleCI, o Travis-CI possui uma versão paga que é hospedada por eles, e possui tanto custos, quanto limitação em relação ao número de jobs, tempo de execução, e outras ferramentas. 
+  
+---

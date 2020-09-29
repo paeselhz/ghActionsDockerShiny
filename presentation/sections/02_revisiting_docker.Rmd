@@ -1,0 +1,58 @@
+class: bg-main1 split-30 hide-slide-number
+
+.column.bg-main3[
+]
+.column.slide-in-right[
+.sliderbox.bg-main2.vmiddle[
+.font3[Revisitando Docker]
+]]
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# O que é Docker:
+
+--
+
+  ## Docker é uma ferramenta desenvolvida pela .text-hl[Google]
+  ## para facilitar o desenvolvimento e implementação de aplicativos através de 
+  ## .font2[CONTAINERS]
+        
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Vantagens de usar o Docker:
+
+--
+
+  ## Configuração simplificada das imagens
+  ## Melhor administração de código
+  ### Evita a frase: .text-hl3["Mas na minha máquina roda"]
+  ## Capacidades de encontrar problemas
+  ### Facilita o processo de debug de código
+        
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Onde o Docker pode ser aplicado?
+
+--
+  
+  ## Todo script, código, aplicação que é desenvolvida pode ser colocada em um Container do Docker para distribuição e testes.
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Docker VS Virtual Machines
+
+--
+  
+  <div align="center">
+<img src="images/docker_vm.png" height="75%" width="75%" />
+</div>
+  
+---

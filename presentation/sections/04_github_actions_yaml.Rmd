@@ -1,0 +1,135 @@
+class: bg-main1 split-30 hide-slide-number
+
+.column.bg-main3[
+]
+.column.slide-in-right[
+.sliderbox.bg-main2.vmiddle[
+.font3[Arquivo YAML - Github Actions]
+]]
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Configuração do Arquivo
+
+--
+
+  ## Para orquestrar um workflow para ser executado pelo GitHub Actions, é preciso adicionar um arquivo na pasta `.github/workflows/`. Nesse diretório podem ser adicionados mais de um workflow, para diferentes tipos de execução, o GitHub consegue organizar isso de forma coesa. Entretanto, a sugestão do GitHub é que o principal arquivo seja o `main.yml`.
+  
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Componentes do Arquivo
+
+--
+
+  ## Com o arquivo `main.yml` criado, existem os 3 componentes principais para serem declarados: _Workflows_, _Jobs_, _Events_. Além desses, também existem os componentes de _steps_, _actions_ e _runners_.
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Componentes do Arquivo
+
+  ### `Workflows` basicamente são a estrutura procedural da execução, nele são explicitados quais serão os passos a ser tomados, os gatilhos para disparo da execução e a configuração de um ou mais _jobs_.
+  ### `Jobs` correspondem a um conjunto de instruções que devem ser executadas, um mesmo workflow pode ter mais de um Job, e um Job pode ter mais de um Step.
+  ### `Events` são as configurações de disparo para a execução do workflow, seja por commits na branch master, seja por criação de tags no projeto, ou para a validação de Pull requests criados
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Events
+
+--
+
+  ## São instruções responsáveis pelo controle dos gatilhos para disparar o workflow
+  
+--
+
+```{yaml eval = F, echo = T}
+on:
+  push:
+    - branches: [ master ]
+    - tags: [ '*.*.*' ]
+  schedule:
+    - cron: '0 1 * * *'
+```
+  
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Jobs
+
+--
+
+  ## São responsáveis por organizar o fluxo de execução do workflow, um workflow pode ter mais de um job, e cada job pode ser composto por diferentes steps
+  
+--
+  
+```{yaml eval = F, echo = T}
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - ...
+```
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Steps
+
+--
+
+  ## Steps sao a unidade responsável pela execução de uma _action_, ela pode ser desenvolvida por terceiros (e referenciada no script), ou ela pode ser desenvolvida ao longo do workflow através de um _shell script_
+  
+--
+  
+```{yaml eval = F, echo = T}
+- name: Login to DockerHub
+  # This step logs in at Docker Hub
+  if: github.event_name != 'pull_request'
+  uses: docker/login-action@v1
+  with:
+    username: ${{ secrets.DOCKERHUB_USERNAME }}
+    password: ${{ secrets.DOCKERHUB_TOKEN }}
+```
+
+---
+
+class: middle center bg-main1 hide-slide-number
+
+# Steps
+
+```{yaml eval = F, echo = T}
+- name: Prepare
+  id: prep
+  run: |
+    DOCKER_IMAGE=lhzpaese/ghactions_docker_shiny
+    VERSION=noop
+    if [ "${{ github.event_name }}" = "schedule" ]; then
+        VERSION=nightly
+    elif [[ $GITHUB_REF == refs/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+    elif [[ $GITHUB_REF == refs/heads/* ]]; then
+          VERSION=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
+    if [ "${{ github.event.repository.default_branch }}" = "$VERSION" ]; then
+        VERSION=edge
+        fi
+    fi
+    TAGS="${DOCKER_IMAGE}:${VERSION}"
+    echo ::set-output name=version::${VERSION}
+    echo ::set-output name=tags::${TAGS}
+    echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+```
+
+---
